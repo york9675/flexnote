@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>FlexNote</title>
+    <link rel="icon" href="icon.png" />
+    <meta name="description" content="一個非常簡單的記事本程式，簡單易使用，沒有其他複雜功能" />
+    <meta name="author" content="York" />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <link
+      href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      @import url("https://rsms.me/inter/inter.css");
+      html {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+          "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+          "Noto Color Emoji";
+      }
+
+      .gradient {
+        background-image: linear-gradient(-225deg, #cbbacc 0%, #2580b3 100%);
+      }
+
+      button,
+      .gradient2 {
+        background-color: #f39f86;
+        background-image: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);
+      }
+
+      .browser-mockup {
+        border-top: 2em solid rgba(230, 230, 230, 0.7);
+        position: relative;
+        height: 60vh;
+      }
+
+      .browser-mockup:before {
+        display: block;
+        position: absolute;
+        content: "";
+        top: -1.25em;
+        left: 1em;
+        width: 0.5em;
+        height: 0.5em;
+        border-radius: 50%;
+        background-color: #f44;
+        box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+      }
+
+      .browser-mockup > * {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body class="gradient leading-relaxed tracking-wide flex flex-col">
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="york0524" data-description="Support me on Buy me a coffee!" data-message="Do you want to consider sponsoring me a few drinks? (～￣▽￣)～" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+    <nav id="header" class="w-full z-30 top-0 text-white py-1 lg:py-6">
+      <div
+        class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-2 lg:py-6"
+      >
+        <div class="pl-4 flex items-center">
+          <a
+            class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+            href="#download"
+          >
+            🗒️ FlexNote
+          </a>
+        </div>
+
+        <div class="block lg:hidden pr-4">
+          <button
+            title="Menu"
+            id="nav-toggle"
+            class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-green-500 appearance-none focus:outline-none"
+          >
+            <svg
+              class="fill-current h-3 w-3"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>Menu</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20"
+          id="nav-content"
+        >
+          <ul class="list-reset lg:flex justify-end flex-1 items-center">
+            <li class="mr-3">
+              <a
+                class="inline-block py-2 px-4 text-black font-bold no-underline"
+                href="./index.html"
+                >繁體中文</a
+              >
+            </li>
+            <li class="mr-3">
+              <a
+                class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                href="#feature"
+                >Features</a
+              >
+            </li>
+            <li class="mr-3">
+              <a
+                class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                href="https://www.github.com/york9675/flexnote-app"
+                >GitHub</a
+              >
+            </li>
+          </ul>
+          <button
+            id="navAction"
+            onclick="window.location.href='#download'"
+            class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded mt-4 lg:mt-0 py-4 px-8 shadow opacity-75"
+          >
+            Download
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mx-auto h-screen">
+      <div class="text-center px-3 lg:px-0">
+        <h1
+          class="my-4 text-2xl md:text-3xl lg:text-5xl font-black leading-tight"
+        >
+        FlexNote
+        </h1>
+        <p
+          class="leading-normal text-gray-800 text-base md:text-xl lg:text-2xl mb-8"
+        >
+        A very simple notepad program, easy to use with no other complicated features.
+        </p>
+
+        <button
+          onclick="window.location.href='#download'"
+          class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-4 px-8 shadow-lg w-48"
+        >
+          Download Now
+        </button>
+        <a
+          class="inline-block mx-auto lg:mx-0 hover:no-underline bg-transparent text-gray-600 font-extrabold my-2 md:my-6 py-2 lg:py-4 px-8"
+          >Support Windows 7 and above</a
+        >
+      </div>
+
+      <div class="flex items-center w-full mx-auto content-end">
+        <img src="screenshot_en.png" alt="Screenshot" class="w-medium mx-auto rounded shadow-lg">
+      </div>
+    </div>
+
+    <section id = "feature" class="bg-gray-100 border-b py-8">
+      <div class="container max-w-5xl mx-auto m-8">
+        <h2
+          class="w-full my-2 text-5xl font-black leading-tight text-center text-gray-800"
+        >
+          Features
+        </h2>
+        <div class="w-full mb-4">
+          <div
+            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
+          ></div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+              Simple, not simple
+            </h3>
+            <p class="text-gray-600 mb-8">
+              Although it is a very cool notepad program, it has many convenient functions!
+              <br />
+              While it is simple and convenient to operate, it does not lose its functionality!
+              <br />
+              <br />
+              The following will introduce you to the rich functions!
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 p-6">
+            <img src="screenshot_en.png" alt="Screenshot" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <img src="feature1_en.png" alt="Font Setting menu" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <div class="align-middle">
+              <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                Use your own font!
+              </h3>
+              <p class="text-gray-600 mb-8">
+                This notepad has a font switching function, allowing you to use your favorite font!
+                <br />
+                <br />
+                * Note1: You need to install the fonts you want on your computer first.
+                <br />
+                * Note2: This function is still in the testing phase and may have some problems.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+              Character count statistics, interface scaling
+            </h3>
+            <p class="text-gray-600 mb-8">
+              This notepad has a character count function, allowing you to know how many characters your article has!
+              <br />
+              It also has an interface zoom function, allowing you to zoom in or out of the interface!
+              <br />
+              <br />
+              * Note: These will show up in the status bar at the bottom, and you can turn them off in settings!
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 p-6">
+            <img src="feature2_en.png" alt="Status bar" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <img src="feature3_en.png" alt="Archive reminder window" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <div class="align-middle">
+              <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                Archive reminder
+              </h3>
+              <p class="text-gray-600 mb-8">
+                We often forget to archive. This notepad is very considerate. When it finds that you have not archived but try to close the window, it will remind you to archive!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+              Shortcut keys
+            </h3>
+            <p class="text-gray-600 mb-8">
+              In order to improve the convenience of use, we have designed some shortcut keys so that you can operate more quickly!
+              <br />
+              <br />
+              * Note: A list of shortcut keys can be viewed in the Help menu
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 p-6">
+            <img src="feature4_en.png" alt="A list of shortcut keys in the Help menu" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <img src="feature5.jpeg" alt="記憶體占用比較" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <div class="align-middle">
+              <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                Low resource consumption
+              </h3>
+              <p class="text-gray-600 mb-8">
+                What’s exaggerated is that the resource consumption of this notepad is very low and it won’t take up too much memory or CPU!
+                <br />
+                For example, the built-in Notepad in Windows consumes about 20MB of memory, but this Notepad only uses about 5MB, which can be said to save about 75% of the memory than the built-in Notepad in Windows!
+                <br />
+                <br />
+                * Note 1: This data was obtained during my own testing. The actual data may be different.
+                <br />
+                * Note 2: Will continue to be optimized!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+              Free & Open Source
+            </h3>
+            <p class="text-gray-600 mb-8">
+              With so many useful features above, you might think this is a paid software, but it’s not!
+              <br />
+              This is completely free software and open source on GitHub!
+              <br />
+              <br />
+              * Note: You may consider using <a class="text-orange-500 underline" href="https://www.buymeacoffee.com/york0524">Buy Me A Coffee</a> to support me in making more good ones Software used!
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 p-6">
+            <img src="code.png" alt="My VS COde" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="download" class="bg-white border-b py-8">
+      <div class="container mx-auto px-2 pt-4 pb-12 text-gray-800">
+        <h2
+          class="w-full my-2 text-5xl font-black leading-tight text-center text-gray-800"
+        >
+          Download
+        </h2>
+        <div class="w-full mb-4">
+          <div
+            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
+          ></div>
+        </div>
+
+        <div
+          class="flex flex-col sm:flex-row justify-center pt-12 my-12 sm:my-4"
+        >
+          <div
+            class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4"
+          >
+            <div
+              class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow"
+            >
+              <div class="p-8 text-3xl font-bold text-center border-b-4">
+                FlexNote Free
+              </div>
+              <ul class="w-full text-center text-sm">
+                <li class="border-b py-4">Enjoy all FlexNote features</li>
+                <li class="border-b py-4">100% FREE</li>
+                <li class="border-b py-4">No ADs, limit</li>
+                <li class="border-b py-4">Just download</li>
+              </ul>
+            </div>
+            <div
+              class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
+            >
+              <div
+                class="w-full pt-6 text-3xl text-gray-600 font-bold text-center"
+              >
+                $0 <span class="text-base">for one user</span>
+              </div>
+              <div class="flex items-center justify-center">
+                <button
+                  onclick="window.open('https://github.com/york9675/flexnote-app/releases/latest', '_blank')"
+                  class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
+                >
+                  Download
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col w-5/6 lg:w-1/3 mx-auto lg:mx-0 rounded-lg bg-white mt-4 sm:-mt-6 gradient shadow hover:shadow-lg z-10"
+          >
+            <div class="flex-1 rounded-t rounded-b-none overflow-hidden">
+              <div class="w-full p-8 text-3xl font-bold text-center">FlexNote Pro</div>
+              <ul class="w-full text-center text-base font-bold">
+                <li class="py-4">Be the first to use new versions before they are released</li>
+                <li class="py-4">1-to-1 dedicated customer service</li>
+                <li class="py-4">We will thank you in the About interface</li>
+                <li class="py-4">Available for single sponsorship with no limit on amount</li>
+              </ul>
+            </div>
+            <div
+              class="flex-none mt-auto rounded-b rounded-t-none overflow-hidden p-6"
+            >
+              <div class="w-full pt-6 text-4xl font-bold text-center">
+                $Custom <span class="text-base">/ per user</span>
+              </div>
+              <div class="flex items-center justify-center">
+                <button
+                  onclick="window.open('https://www.buymeacoffee.com/york0524', '_blank')"
+                  class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
+                >
+                 Support
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4"
+          >
+            <div
+              class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow"
+            >
+              <div class="p-8 text-3xl font-bold text-center border-b-4">
+                FlexNote Beta
+              </div>
+              <ul class="w-full text-center text-sm">
+                <li class="border-b py-4">Experience the latest features</li>
+                <li class="border-b py-4">Provide user feedback</li>
+                <li class="border-b py-4">Free to application and experience</li>
+                <li class="border-b py-4">May have many bugs</li>
+              </ul>
+            </div>
+            <div
+              class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
+            >
+              <div
+                class="w-full pt-6 text-3xl text-gray-600 font-bold text-center"
+              >
+                $0 <span class="text-base">/ per user</span>
+              </div>
+              <div class="flex items-center justify-center">
+                <button
+                  class="mx-auto lg:mx-0 hover:nounderline gradient2 text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
+                >
+                  Not available
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="github" class="gradient w-full mx-auto text-center pt-6 pb-12">
+      <h2
+        class="w-full my-2 text-5xl font-black leading-tight text-center text-white"
+      >
+        GitHub open source software
+      </h2>
+      <div class="w-full mb-4">
+        <div
+          class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"
+        ></div>
+      </div>
+
+      <h3 class="my-4 text-3xl font-extrabold">
+        This software has open source code on GitHub, and you are welcome to participate in its development!
+      </h3>
+
+      <button
+        onclick="window.open('https://www.github.com/york9675/flexnote-app', '_blank')"
+        class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
+      >
+        Go to GitHub
+      </button>
+    </section>
+
+    <footer class="bg-white ">
+      <div class="container mx-auto mt-8 px-8">
+        <div class="w-full flex flex-col md:flex-row py-6">
+          <div class="flex-1 mb-6">
+            <a
+              class="text-orange-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+              href="#download"
+            >
+              🗒️ FlexNote
+            </a>
+          </div>
+
+          <div class="flex-1">
+            <p class="uppercase font-extrabold text-gray-500 md:mb-6">LINKS</p>
+            <ul class="list-reset mb-6">
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://github.com/york9675/flexnote-app"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >GitHub</a
+                >
+              </li>
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://github.com/york9675/flexnote-app/issues"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >Support</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-1">
+            <p class="uppercase font-extrabold text-gray-500 md:mb-6">LEGAL</p>
+            <ul class="list-reset mb-6">
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="./terms-of-service.html"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >Terms of service</a
+                >
+              </li>
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="./privacy-policy.html"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >Privacy Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-1">
+            <p class="uppercase font-extrabold text-gray-500 md:mb-6">
+              ABOUT DEVELOPER
+            </p>
+            <ul class="list-reset mb-6">
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://www.buymeacoffee.com/york0524"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >Buy Me A Coffee</a
+                >
+              </li>
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://www.github.com/york9675"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >GitHub</a
+                >
+              </li>
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://discord.com/users/571310191807692821"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >Discord</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      var navMenuDiv = document.getElementById("nav-content");
+      var navMenu = document.getElementById("nav-toggle");
+
+      document.onclick = check;
+      function check(e) {
+        var target = (e && e.target) || (event && event.srcElement);
+
+        if (!checkParent(target, navMenuDiv)) {
+          if (checkParent(target, navMenu)) {
+            if (navMenuDiv.classList.contains("hidden")) {
+              navMenuDiv.classList.remove("hidden");
+            } else {
+              navMenuDiv.classList.add("hidden");
+            }
+          } else {
+            navMenuDiv.classList.add("hidden");
+          }
+        }
+      }
+      function checkParent(t, elm) {
+        while (t.parentNode) {
+          if (t == elm) {
+            return true;
+          }
+          t = t.parentNode;
+        }
+        return false;
+      }
+    </script>
+  </body>
+</html>

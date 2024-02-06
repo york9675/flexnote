@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>FlexNote</title>
+    <link rel="icon" href="icon.png" />
+    <meta name="description" content="一個非常簡單的記事本程式，簡單易使用，沒有其他複雜功能" />
+    <meta name="author" content="York" />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <link
+      href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      @import url("https://rsms.me/inter/inter.css");
+      html {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+          "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+          "Noto Color Emoji";
+      }
+
+      .gradient {
+        background-image: linear-gradient(-225deg, #cbbacc 0%, #2580b3 100%);
+      }
+
+      button,
+      .gradient2 {
+        background-color: #f39f86;
+        background-image: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);
+      }
+
+      .browser-mockup {
+        border-top: 2em solid rgba(230, 230, 230, 0.7);
+        position: relative;
+        height: 60vh;
+      }
+
+      .browser-mockup:before {
+        display: block;
+        position: absolute;
+        content: "";
+        top: -1.25em;
+        left: 1em;
+        width: 0.5em;
+        height: 0.5em;
+        border-radius: 50%;
+        background-color: #f44;
+        box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+      }
+
+      .browser-mockup > * {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body class="gradient leading-relaxed tracking-wide flex flex-col">
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="york0524" data-description="Support me on Buy me a coffee!" data-message="要不要考慮贊助我幾杯飲料啊 (～￣▽￣)～" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+    <nav id="header" class="w-full z-30 top-0 text-white py-1 lg:py-6">
+      <div
+        class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-2 lg:py-6"
+      >
+        <div class="pl-4 flex items-center">
+          <a
+            class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+            href="#download"
+          >
+            🗒️ FlexNote
+          </a>
+        </div>
+
+        <div class="block lg:hidden pr-4">
+          <button
+            title="選單"
+            id="nav-toggle"
+            class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-green-500 appearance-none focus:outline-none"
+          >
+            <svg
+              class="fill-current h-3 w-3"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>選單</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20"
+          id="nav-content"
+        >
+          <ul class="list-reset lg:flex justify-end flex-1 items-center">
+            <li class="mr-3">
+              <a
+                class="inline-block py-2 px-4 text-black font-bold no-underline"
+                href="./english.html"
+                >English</a
+              >
+            </li>
+            <li class="mr-3">
+              <a
+                class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                href="#feature"
+                >功能特色</a
+              >
+            </li>
+            <li class="mr-3">
+              <a
+                class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                href="https://www.github.com/york9675/flexnote-app"
+                >GitHub</a
+              >
+            </li>
+          </ul>
+          <button
+            id="navAction"
+            onclick="window.location.href='#download'"
+            class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded mt-4 lg:mt-0 py-4 px-8 shadow opacity-75"
+          >
+            下載
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mx-auto h-screen">
+      <div class="text-center px-3 lg:px-0">
+        <h1
+          class="my-4 text-2xl md:text-3xl lg:text-5xl font-black leading-tight"
+        >
+        FlexNote
+        </h1>
+        <p
+          class="leading-normal text-gray-800 text-base md:text-xl lg:text-2xl mb-8"
+        >
+        一個非常簡單的記事本程式，簡單易使用，沒有其他複雜功能。
+        </p>
+
+        <button
+          onclick="window.location.href='#download'"
+          class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-4 px-8 shadow-lg w-48"
+        >
+          立即下載
+        </button>
+        <a
+          class="inline-block mx-auto lg:mx-0 hover:no-underline bg-transparent text-gray-600 font-extrabold my-2 md:my-6 py-2 lg:py-4 px-8"
+          >支援Windows 7以上作業系統</a
+        >
+      </div>
+
+      <div class="flex items-center w-full mx-auto content-end">
+        <img src="screenshot.png" alt="Screenshot" class="w-medium mx-auto rounded shadow-lg">
+      </div>
+    </div>
+
+    <section id = "feature" class="bg-gray-100 border-b py-8">
+      <div class="container max-w-5xl mx-auto m-8">
+        <h2
+          class="w-full my-2 text-5xl font-black leading-tight text-center text-gray-800"
+        >
+          功能特色
+        </h2>
+        <div class="w-full mb-4">
+          <div
+            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
+          ></div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+              簡單，卻不簡單
+            </h3>
+            <p class="text-gray-600 mb-8">
+              雖然是個非常陽春的記事本程式，但是卻擁有許多方便功能!
+              <br />
+              在簡單方便操作的同時，也不失其功能性!
+              <br />
+              <br />
+              以下將會為您介紹豐富的功能!
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 p-6">
+            <img src="screenshot.png" alt="Screenshot" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <img src="feature1.png" alt="字體設定選單" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <div class="align-middle">
+              <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                使用你自己的字體!
+              </h3>
+              <p class="text-gray-600 mb-8">
+                此記事本擁有字體切換功能，讓你可以使用自己喜歡的字體!
+                <br />
+                <br />
+                * 註1: 您需要先在你的電腦安裝您想要的字體
+                <br />
+                * 註2: 此功能仍在測試階段，可能有一些問題
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+              字元數統計、介面縮放
+            </h3>
+            <p class="text-gray-600 mb-8">
+              此記事本擁有字元數統計功能，讓你可以知道你的文章有多少字元!
+              <br />
+              也擁有介面縮放功能，讓你可以放大或縮小介面!
+              <br />
+              <br />
+              * 註: 這些會顯示在底部的狀態列，而你可以在設定中關閉它們!
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 p-6">
+            <img src="feature2.png" alt="狀態列" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <img src="feature3.png" alt="存檔提醒視窗" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <div class="align-middle">
+              <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                存檔提醒
+              </h3>
+              <p class="text-gray-600 mb-8">
+                我們常常忘記要存檔，這個記事本很貼心，在發現你沒存檔卻嘗試關閉視窗時，會提醒你要存檔!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+              快捷鍵
+            </h3>
+            <p class="text-gray-600 mb-8">
+              為了提升使用便捷性，我們設計了一些快捷鍵，讓你可以更快速的操作!
+              <br />
+              <br />
+              * 註: 可在幫助選單中查看快捷鍵列表
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 p-6">
+            <img src="feature4.png" alt="幫助視窗中的快捷鍵列表" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <img src="feature5.jpeg" alt="記憶體占用比較" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <div class="align-middle">
+              <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                低資源消耗
+              </h3>
+              <p class="text-gray-600 mb-8">
+                誇張的是，這個記事本的資源消耗非常低，不會佔用太多的記憶體或CPU!
+                <br />
+                舉例來說，Windows內建的記事本記憶體消耗約為20MB，而這個記事本只用了約5MB，可說是比Windows內建的記事本省了約75%的記憶體!
+                <br />
+                <br />
+                * 註1: 這個數據是在我自己測試得到的，實際數據可能會有所不同
+                <br />
+                * 註2: 將會持續優化!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+              完全免費、開源!
+            </h3>
+            <p class="text-gray-600 mb-8">
+              以上那麼多好用功能，你可能會以為這是個收費軟體，但是不是!
+              <br />
+              這是一個完全免費的軟體，而且在GitHub上有開放原始碼!
+              <br />
+              <br /> 
+              * 註: 你可以考慮使用<a class="text-orange-500 underline" href="https://www.buymeacoffee.com/york0524">Buy Me A Coffee</a>來支持我製作更多好用的軟體!
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 p-6">
+            <img src="code.png" alt="我的VS Code視窗" class="w-medium mx-auto rounded shadow-lg">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="download" class="bg-white border-b py-8">
+      <div class="container mx-auto px-2 pt-4 pb-12 text-gray-800">
+        <h2
+          class="w-full my-2 text-5xl font-black leading-tight text-center text-gray-800"
+        >
+          下載
+        </h2>
+        <div class="w-full mb-4">
+          <div
+            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
+          ></div>
+        </div>
+
+        <div
+          class="flex flex-col sm:flex-row justify-center pt-12 my-12 sm:my-4"
+        >
+          <div
+            class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4"
+          >
+            <div
+              class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow"
+            >
+              <div class="p-8 text-3xl font-bold text-center border-b-4">
+                FlexNote Free
+              </div>
+              <ul class="w-full text-center text-sm">
+                <li class="border-b py-4">享有所有FlexNote功能</li>
+                <li class="border-b py-4">完全免費</li>
+                <li class="border-b py-4">無廣告、使用限制</li>
+                <li class="border-b py-4">下載就對了</li>
+              </ul>
+            </div>
+            <div
+              class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
+            >
+              <div
+                class="w-full pt-6 text-3xl text-gray-600 font-bold text-center"
+              >
+                $0 <span class="text-base"> /人</span>
+              </div>
+              <div class="flex items-center justify-center">
+                <button
+                  onclick="window.open('https://github.com/york9675/flexnote-app/releases/latest', '_blank')"
+                  class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
+                >
+                  立即下載
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col w-5/6 lg:w-1/3 mx-auto lg:mx-0 rounded-lg bg-white mt-4 sm:-mt-6 gradient shadow hover:shadow-lg z-10"
+          >
+            <div class="flex-1 rounded-t rounded-b-none overflow-hidden">
+              <div class="w-full p-8 text-3xl font-bold text-center">FlexNote Pro</div>
+              <ul class="w-full text-center text-base font-bold">
+                <li class="py-4">在新版本未發布前搶先使用</li>
+                <li class="py-4">1對1專屬客戶服務</li>
+                <li class="py-4">會在關於介面感謝您</li>
+                <li class="py-4">不限金額單次贊助即可享有</li>
+              </ul>
+            </div>
+            <div
+              class="flex-none mt-auto rounded-b rounded-t-none overflow-hidden p-6"
+            >
+              <div class="w-full pt-6 text-4xl font-bold text-center">
+                $自訂 <span class="text-base">/ 人</span>
+              </div>
+              <div class="flex items-center justify-center">
+                <button
+                  onclick="window.open('https://www.buymeacoffee.com/york0524', '_blank')"
+                  class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
+                >
+                  前往贊助
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4"
+          >
+            <div
+              class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow"
+            >
+              <div class="p-8 text-3xl font-bold text-center border-b-4">
+                FlexNote Beta
+              </div>
+              <ul class="w-full text-center text-sm">
+                <li class="border-b py-4">體驗最新功能</li>
+                <li class="border-b py-4">提供用戶回饋</li>
+                <li class="border-b py-4">免費申請體驗</li>
+                <li class="border-b py-4">可能有bug</li>
+              </ul>
+            </div>
+            <div
+              class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
+            >
+              <div
+                class="w-full pt-6 text-3xl text-gray-600 font-bold text-center"
+              >
+                $0 <span class="text-base">/ 人</span>
+              </div>
+              <div class="flex items-center justify-center">
+                <button
+                  class="mx-auto lg:mx-0 hover:nounderline gradient2 text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
+                >
+                  尚未開放
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="github" class="gradient w-full mx-auto text-center pt-6 pb-12">
+      <h2
+        class="w-full my-2 text-5xl font-black leading-tight text-center text-white"
+      >
+        GitHub開源軟體
+      </h2>
+      <div class="w-full mb-4">
+        <div
+          class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"
+        ></div>
+      </div>
+
+      <h3 class="my-4 text-3xl font-extrabold">
+        此軟體在GitHub上有開放原始碼，歡迎您參與開發!
+      </h3>
+
+      <button
+        onclick="window.open('https://www.github.com/york9675/flexnote-app', '_blank')"
+        class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
+      >
+        前往GitHub
+      </button>
+    </section>
+
+    <footer class="bg-white ">
+      <div class="container mx-auto mt-8 px-8">
+        <div class="w-full flex flex-col md:flex-row py-6">
+          <div class="flex-1 mb-6">
+            <a
+              class="text-orange-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+              href="#download"
+            >
+              🗒️ FlexNote
+            </a>
+          </div>
+
+          <div class="flex-1">
+            <p class="uppercase font-extrabold text-gray-500 md:mb-6">連結</p>
+            <ul class="list-reset mb-6">
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://github.com/york9675/flexnote-app"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >GitHub</a
+                >
+              </li>
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://github.com/york9675/flexnote-app/issues"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >支援</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-1">
+            <p class="uppercase font-extrabold text-gray-500 md:mb-6">條款</p>
+            <ul class="list-reset mb-6">
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="./terms-of-service.html"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >服務條款</a
+                >
+              </li>
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="./privacy-policy.html"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >隱私權政策</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-1">
+            <p class="uppercase font-extrabold text-gray-500 md:mb-6">
+              關於開發者
+            </p>
+            <ul class="list-reset mb-6">
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://www.buymeacoffee.com/york0524"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >Buy Me A Coffee</a
+                >
+              </li>
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://www.github.com/york9675"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >GitHub</a
+                >
+              </li>
+              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+                <a
+                  href="https://discord.com/users/571310191807692821"
+                  class="font-light no-underline hover:underline text-gray-800 hover:text-orange-500"
+                  >Discord</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      var navMenuDiv = document.getElementById("nav-content");
+      var navMenu = document.getElementById("nav-toggle");
+
+      document.onclick = check;
+      function check(e) {
+        var target = (e && e.target) || (event && event.srcElement);
+
+        if (!checkParent(target, navMenuDiv)) {
+          if (checkParent(target, navMenu)) {
+            if (navMenuDiv.classList.contains("hidden")) {
+              navMenuDiv.classList.remove("hidden");
+            } else {
+              navMenuDiv.classList.add("hidden");
+            }
+          } else {
+            navMenuDiv.classList.add("hidden");
+          }
+        }
+      }
+      function checkParent(t, elm) {
+        while (t.parentNode) {
+          if (t == elm) {
+            return true;
+          }
+          t = t.parentNode;
+        }
+        return false;
+      }
+    </script>
+  </body>
+</html>
